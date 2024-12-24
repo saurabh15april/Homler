@@ -1,0 +1,76 @@
+/* General Styling */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+  }
+  
+  .homepage {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+ 
+  
+  /* Hero Banner */
+  .hero-banner img {
+    height: 400px;
+    /* width: 100%; */
+    margin-left: 210px;  
+   margin-top: 20px;
+    /* margin: 20px 0; */
+    border-radius: 8px;
+  }
+  
+  /* Featured Products */
+  .featured-products {
+    padding: 20px 0;
+  }
+  
+  .featured-products h2 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+  }
+  
+  .product-card {
+    background: #f8f8f8;
+    text-align: center;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  .product-card img {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+  
+  .product-card h3 {
+    font-size: 18px;
+    margin: 10px 0;
+  }
+  
+  .product-card p {
+    font-size: 16px;
+    color: #555;
+  }
+  
+  .product-card button {
+    padding: 10px;
+    background-color: #ff9900;
+    border: none;
+    color: white;
+    cursor: pointer;
+    border-radius: 4px;
+  }
+  
+  .product-card button:hover {
+    background-color: #e68a00;
+  }
+  
+  
