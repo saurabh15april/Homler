@@ -9,14 +9,17 @@ import About from './component/About';
 import Navbar from './component/Navbar';
 import NotificationPage from './component/NotificationPage';
 import ContactPage from './component/ContactPage';
+import ProtectedRoute from './component/ProtectedRoute';
 
 function App() {
   return (<div>
     <BrowserRouter>
       <Navbar />
       <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/add" element={<AddInspectionForm />} />
+        <Route path="/*" element={<HomePage />} />
+        <Route path="/add" element={<ProtectedRoute>
+              <AddInspectionForm />
+            </ProtectedRoute>} />
         <Route path="/login" element={<Login />} />
         <Route path="/About" element={<About />} />
         <Route path="/NotificationPage" element={<NotificationPage />} />
