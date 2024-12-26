@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { TextField, MenuItem, Select, Button, FormControl, FormControlLabel, Checkbox, InputLabel, Box } from '@mui/material';
 
-const AddInspectionForm = () => {
+ export const AddInspectionForm = () => {
   const [formData, setFormData] = useState({
     machineName: '',
     jointName: '',
@@ -41,14 +41,32 @@ const AddInspectionForm = () => {
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async(e) => {
     e.preventDefault();
     if (!formData.termsAccepted) {
       alert('You must accept the terms and conditions!');
       return;
     }
-    console.log('Form Data Submitted:', formData);
+    
     alert('Form Submitted Successfully!');
+
+      console.log('New Product:', formData);
+      // Add logic here to save the new product to the database
+      try{
+          const res = await fetch('http://localhost:8080/Addproduct',{
+              method: 'POST',
+              headers:{
+                  'Content-Type' : 'application/json',
+              },
+              body: JSON.stringify(formData),
+          });
+          const result = await res.json();
+          setFormData(result);
+
+      }catch(error){
+          console.log(error)
+      }
+
     setFormData({
       machineName: '',
       jointName: '',
@@ -202,5 +220,5 @@ const AddInspectionForm = () => {
     </Box>
   );
 };
-
+ 
 export default AddInspectionForm;

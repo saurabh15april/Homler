@@ -1,12 +1,44 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./HomePage.css";
 
 const HomePage = () => {
+  const [products, setProducts] = useState([]); // State to store fetched products
+  const [error, setError] = useState(null); // State to handle errors
+
+  // Fetch data from the API
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       const response = await fetch("http://localhost:8080/*");
+  //       if (!response.ok) {
+  //         throw new Error(HTTP error! status: ${responsestatus});
+  //       }
+  //       const data = await response.json();
+  //       setProducts(data); // Update the state with the fetched data
+  //     } catch (err) {
+  //       setError(err.message); // Handle errors
+  //     }
+  //   };
+
+  //   fetchData();
+  // }, []);
+
+  useEffect(() => {
+    // Fetch data from the server
+    fetch('http://localhost:8080/*') // Replace with your endpoint
+      .then((response) => response.json())
+      .then((result) => {
+        setProducts(result);
+        
+      })
+      .catch((error) => {
+        console.error('Error fetching data:', error);
+        setError(error.message);
+      });
+  }, []);
+
   return (
     <div className="homepage">
-     
-
-     
       {/* Hero Banner */}
       <div className="hero-banner">
         <img
@@ -15,25 +47,41 @@ const HomePage = () => {
         />
       </div>
 
+      {/* Error Handling */}
+      {error && <div className="error">Error: {error}</div>}
+
       {/* Featured Products */}
       <section className="featured-products">
-        <h2>Featured Machine</h2>
+        <h2>Featured Machines</h2>
         <div className="product-grid">
-          {[...Array(8)].map((_, index) => (
-            <div key={index} className="product-card">
-              <img
-                src={`https://via.placeholder.com/200x200?text=Product+${index + 1}`}
-                alt={`Product ${index + 1}`}
-              />
-              <h3>Machine {index + 1}</h3>
-              <p>$100.00</p>
-              <button>Add to Cart</button>
-            </div>
-          ))}
+          {products.length > 0 ? (
+            products.map((product) => (
+              <div className="product-card">
+                {/* <img
+                  src={product.imageUrl || "https://via.placeholder.com/200x200"}
+                  alt={product.assetName || Machine ${index + 1}}
+                /> */}
+                <h3>{product.machineName }</h3>
+                <p>{product.jointName }</p>
+                <p>{product.inspectionDate }</p>
+                <p>{product.expireDate }</p>
+                <p>{product.nextInspectionDate }</p>
+                <p>{product.inspectionStatus }</p>
+                <p>{product.remark }</p>
+                <p>{product.inspectionWorker }</p>
+                <p>{product.inspectionIncharge }</p>
+                <p>{product.observation}</p>
+                  
+                <button >Add to notification</button>
+                <button>View</button>
+                <button>Delete</button>
+              </div>
+            ))
+          ) : (
+            <p>Loading products...</p>
+          )}
         </div>
       </section>
-
-      
     </div>
   );
 };

@@ -42,7 +42,7 @@ app.post('/Signup', async(req,res)=>{
     console.log(req.body);
     const db= client.db(dbName);
     const collection = db.collection('MaintenanceRecord');
-    collection.insertMany(req.body);
+    collection.insertOne(req.body);
     // collection.deleteMany();
     res.send({massage: "successfully added"});
  })
@@ -129,7 +129,8 @@ app.delete('/delete/:id', async (req, res) => {
         const id = req.params.id;
 
         // Assume `date` is stored as a string in MongoDB
-        const check2 = { performedBy: id };
+        const check2 = { 
+            recordId: id };
 
         // Query the database
         const results = await collection.deleteOne(check2);
