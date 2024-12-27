@@ -9,7 +9,7 @@ const HomePage = () => {
   // useEffect(() => {
   //   const fetchData = async () => {
   //     try {
-  //       const response = await fetch("http://localhost:8080/*");
+  //       const response = await fetch("https://bummy-backend.onrender.com/*");
   //       if (!response.ok) {
   //         throw new Error(HTTP error! status: ${responsestatus});
   //       }
@@ -25,7 +25,7 @@ const HomePage = () => {
 
   useEffect(() => {
     // Fetch data from the server
-    fetch('http://localhost:8080/*') // Replace with your endpoint
+    fetch('https://bummy-backend.onrender.com/*') // Replace with your endpoint
       .then((response) => response.json())
       .then((result) => {
         setProducts(result);
