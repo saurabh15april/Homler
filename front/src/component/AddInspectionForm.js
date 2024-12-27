@@ -53,7 +53,7 @@ import { TextField, MenuItem, Select, Button, FormControl, FormControlLabel, Che
       console.log('New Product:', formData);
       // Add logic here to save the new product to the database
       try{
-          const res = await fetch('http://localhost:8080/Addproduct',{
+          const res = await fetch('https://bummy-backend.onrender.com/Addproduct',{
               method: 'POST',
               headers:{
                   'Content-Type' : 'application/json',
