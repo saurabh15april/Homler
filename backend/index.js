@@ -1,7 +1,7 @@
 const express = require('express');     // require express for routing 
 const app = express();                  // excuateable express instance
 const mongoose = require('mongoose');    // require mongoose instance
-const PORT = 8080;
+const PORT = process.env.PORT || 8080;
 const { MongoClient } = require('mongodb');         // connect to and interact with a MongoDB database
 const cors = require('cors');                       // to handle error 
 // add mideielware
