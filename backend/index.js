@@ -170,7 +170,7 @@ const { MongoClient, ObjectId } = require('mongodb');
 const cors = require('cors');
 
 const PORT = process.env.PORT || 8080;
-const MONGO_URI = process.env.MONGO_URI || 'mongodb://localhost:27017/Maintenance';
+const MONGO_URI = process.env.MONGO_URI || 'mongodb+srv://dubesaurabh99:x8ccn6ebrd@cluster0.hvajd.mongodb.net/Maintenance';
 
 // Middleware
 app.use(cors());
