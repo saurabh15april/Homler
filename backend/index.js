@@ -193,7 +193,7 @@ async function connectToMongo() {
     try {
         await client.connect();
         db = client.db(dbName);
-        console.log('Connected successfully to MongoDB');
+        console.log('Connected successfully to MongoDB Atlas Server');
     } catch (err) {
         console.error('Failed to connect to MongoDB', err);
     }
