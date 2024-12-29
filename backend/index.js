@@ -215,7 +215,7 @@ app.post('/Signup', async (req, res) => {
 app.post('/Addproduct', async (req, res) => {
     try {
         const collection = db.collection('MaintenanceRecord');
-        await collection.insertMany(req.body);
+        await collection.insertOne(req.body);
         res.send({ message: 'Maintenance record added successfully' });
     } catch (err) {
         res.status(500).send({ error: 'Failed to add record', details: err.message });
