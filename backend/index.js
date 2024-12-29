@@ -170,7 +170,7 @@ const { MongoClient, ObjectId } = require('mongodb');
 const cors = require('cors');
 
 const PORT = process.env.PORT || 8080;
-const MONGO_URI = process.env.MONGO_URI || 'mongodb+srv://dubesaurabh99:x8ccn6ebrd@cluster0.hvajd.mongodb.net/Maintenance';
+const MONGO_URI = process.env.MONGO_URI || 'mongodb+srv://dubesaurabh131:x8ccn6ebrd@finalset.ivpep.mongodb.net/?retryWrites=true&w=majority&appName=finalset';
 
 // Middleware
 app.use(cors());
@@ -208,7 +208,7 @@ app.post('/Signup', async (req, res) => {
 app.post('/Addproduct', async (req, res) => {
     try {
         const collection = db.collection('MaintenanceRecord');
-        await collection.insertOne(req.body);
+        await collection.insertMany(req.body);
         res.send({ message: 'Maintenance record added successfully' });
     } catch (err) {
         res.status(500).send({ error: 'Failed to add record', details: err.message });
@@ -216,7 +216,7 @@ app.post('/Addproduct', async (req, res) => {
 });
 
 // Get All Records
-app.get('/*', async (req, res) => {
+app.get('/', async (req, res) => {
     try {
         const collection = db.collection('MaintenanceRecord');
         const records = await collection.find().toArray();
@@ -277,5 +277,5 @@ app.delete('/delete/:id', async (req, res) => {
 });
 
 app.listen(PORT, () => {
-    console.log(`Server is running on http://localhost:${PORT}`);
+    console.log(`Server is running on ${PORT}`);
 });
