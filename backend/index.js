@@ -166,19 +166,26 @@ const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
 require('dotenv').config();
-const { MongoClient, ObjectId } = require('mongodb');
+const { MongoClient, ObjectId,ServerApiVersion } = require('mongodb');
 const cors = require('cors');
 
 const PORT = process.env.PORT || 8080;
-const MONGO_URI = process.env.MONGO_URI || 'mongodb+srv://dubesaurabh131:x8ccn6ebrd@finalset.ivpep.mongodb.net/?retryWrites=true&w=majority&appName=finalset';
-
+// const MONGO_URI = process.env.MONGO_URI || 'mongodb+srv://dubesaurabh131:x8ccn6ebrd@finalset.ivpep.mongodb.net/?retryWrites=true&w=majority&appName=finalset';
+const uri = "mongodb+srv://dubesaurabh131:x8ccn6ebrd@maintainance.qprbc.mongodb.net/?retryWrites=true&w=majority&appName=Maintainance";
 // Middleware
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // MongoDB Connection
-const client = new MongoClient(MONGO_URI);
+// const client = new MongoClient(MONGO_URI);
+const client = new MongoClient(uri, {
+    serverApi: {
+      version: ServerApiVersion.v1,
+      strict: true,
+      deprecationErrors: true,
+    }
+  });
 const dbName = 'Maintenance';
 let db;
 
@@ -216,7 +223,7 @@ app.post('/Addproduct', async (req, res) => {
 });
 
 // Get All Records
-app.get('/', async (req, res) => {
+app.get('/*', async (req, res) => {
     try {
         const collection = db.collection('MaintenanceRecord');
         const records = await collection.find().toArray();
