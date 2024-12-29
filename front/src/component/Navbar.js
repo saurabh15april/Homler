@@ -90,7 +90,7 @@ const Navbar = () => {
         <li>
         
           {isLoggedIn ? (
-            <button
+            <Link
               onClick={handleLogout}
               className={styles.logoutButton}
               style={{
@@ -98,12 +98,12 @@ const Navbar = () => {
                 cursor: 'pointer',
                 border: 'none',
                 background: '#ffeeee',
-                color: 'white',
+                color: 'red',
                 borderRadius: '5px',
               }}
             >
               Logout
-            </button>
+            </Link>
         ) : (
           <Link to="/login">Login</Link>
         )}
