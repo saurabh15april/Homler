@@ -25,7 +25,7 @@ const HomePage = () => {
 
   useEffect(() => {
     // Fetch data from the server
-    fetch('https://bummy-backend.onrender.com/*') // Replace with your endpoint
+    fetch('https://bummy-backend.onrender.com/') // Replace with your endpoint
       .then((response) => response.json())
       .then((result) => {
         setProducts(result);
@@ -35,6 +35,22 @@ const HomePage = () => {
         console.error('Error fetching data:', error);
         setError(error.message);
       });
+    // fetch('http://localhost:8080/*')
+    // .then(response => {
+    //     if (!response.ok) {
+    //         throw new Error(`HTTP error! status: ${response.status}`);
+    //     }
+    //     return response.json(); // Parse response as JSON
+    // })
+    // .then(data => {
+    //     console.log(data); // Handle the JSON data
+    // })
+    // .catch(error => {
+    //     console.error('Error:', error);
+    // });
+
+
+
   }, []);
 
   return (
