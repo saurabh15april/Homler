@@ -287,10 +287,10 @@ app.get('/:machineName', async (req, res) => {
         const collection = db.collection('MaintenanceRecord');
 
         // Use req.query directly as the filter for MongoDB
-        const query = req.query.machineName;
+        const query = req.params.machineName;
 
         // Fetch records matching the query
-        const results = await collection.find(query).toArray();
+        const results = await collection.find({query}).toArray();
 
         if (results.length === 0) {
             return res.status(404).send({ message: 'No matching documents found' });
