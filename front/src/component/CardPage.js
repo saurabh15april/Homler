@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useParams } from 'react-router-dom';
 
 const CardPage = ({ title, description }) => {
   const navigate = useNavigate();
   const [products, setProducts] = useState([]); // State to store fetched products
   const [error, setError] = useState(null); // State to handle errors
+  const { id } = useParams();
 
   const handleCreateClick = () => {
     navigate("/form"); // Redirect to the form page
@@ -12,7 +14,7 @@ const CardPage = ({ title, description }) => {
 
   useEffect(() => {
     // Fetch data from the server
-    fetch("https://bummy-backend.onrender.com/") // Replace with your endpoint
+    fetch(`https://bummy-backend.onrender.com/${id}`) // Replace with your endpoint
       .then((response) => {
         if (!response.ok) {
           throw new Error("Failed to fetch data");
@@ -62,7 +64,7 @@ const CardPage = ({ title, description }) => {
             return (
               <div className="product-card" key={index}>
                 <p>Gap: {daysGap} days</p>
-                <h3>{product.jointName}</h3>
+                <h3>{product.machineName}</h3>
                 <p>Inspection Date: {product.inspectionDate}</p>
                 <p>Expire Date: {product.expireDate}</p>
                 <p>Next Inspection Date: {product.nextInspectionDate}</p>
