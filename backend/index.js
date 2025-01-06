@@ -223,15 +223,6 @@ app.post('/Addproduct', async (req, res) => {
 });
 
 // Get All Records
-app.get('/*', async (req, res) => {
-    try {
-        const collection = db.collection('MaintenanceRecord');
-        const records = await collection.find().toArray();
-        res.send(records);
-    } catch (err) {
-        res.status(500).send({ error: 'Failed to fetch records', details: err.message });
-    }
-});
 
 // Update a Record
 app.put('/update/:id', async (req, res) => {
@@ -257,7 +248,7 @@ app.get('/search/:date', async (req, res) => {
         const collection = db.collection('MaintenanceRecord');
         const date = req.params.date;
         const results = await collection.find({ date }).toArray();
-
+        
         if (results.length === 0) {
             return res.status(404).send({ message: 'No matching documents found' });
         }
@@ -298,13 +289,22 @@ app.delete('/delete/:id', async (req, res) => {
         const collection = db.collection('MaintenanceRecord');
         const id = req.params.id;
         const result = await collection.deleteOne({ _id: new ObjectId(id) });
-
+        
         if (result.deletedCount === 0) {
             return res.status(404).send({ message: 'No matching document found' });
         }
         res.send({ message: 'Record deleted successfully' });
     } catch (err) {
         res.status(500).send({ error: 'Failed to delete record', details: err.message });
+    }
+});
+app.get('/*', async (req, res) => {
+    try {
+        const collection = db.collection('MaintenanceRecord');
+        const records = await collection.find().toArray();
+        res.send(records);
+    } catch (err) {
+        res.status(500).send({ error: 'Failed to fetch records', details: err.message });
     }
 });
 
