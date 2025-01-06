@@ -267,6 +267,31 @@ app.get('/search/:date', async (req, res) => {
     }
 });
 
+
+// Search for a Record by Machine Name
+app.get('/kkk', async (req, res) => {
+    try {
+        const collection = db.collection('MaintenanceRecord');
+        // const machineName1 = req.query; // Get machineName from query parameter
+
+        if (!machineName1) {
+            return res.status(400).send({ error: 'machineName query parameter is required' });
+        }
+
+        // Find records where products.machineName matches the query
+        const results = await collection.find({ machineName: "BC-2A" }).toArray();
+
+        if (results.length === 0) {
+            return res.status(404).send({ message: 'No matching documents found' });
+        }
+        res.send(results);
+    } catch (err) {
+        res.status(500).send({ error: 'Search failed', details: err.message });
+    }
+});
+
+
+
 // Delete a Record
 app.delete('/delete/:id', async (req, res) => {
     try {
