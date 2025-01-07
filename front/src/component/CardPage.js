@@ -65,14 +65,15 @@ const CardPage = ({ title, description }) => {
               <div className="product-card" key={index}>
                 <p>Gap: {daysGap} days</p>
                 <h3>{product.machineName}</h3>
+                <p>jointName: {product.jointNo}</p>
                 <p>Inspection Date: {product.inspectionDate}</p>
-                <p>Expire Date: {product.expireDate}</p>
+                <p>Joint Date: {product.jointDate}</p>
                 <p>Next Inspection Date: {product.nextInspectionDate}</p>
-                <p>Inspection Status: {product.inspectionStatus}</p>
-                <p>Remark: {product.remark}</p>
-                <p>Inspection Worker: {product.inspectionWorker}</p>
-                <p>Inspection Incharge: {product.inspectionIncharge}</p>
-                <p>Observation: {product.observation}</p>
+                <p>Observation Status: {product.observation}</p>
+                <p>compliance Date: {product.complianceDate}</p>
+                <p>compliance Status: {product.complianceStatus}</p>
+                <p>PTW No: {product.ptwNo}</p>
+                {/* <p>Observation: {product.observation}</p> */}
                 <button>View</button>
                 <button>Delete</button>
               </div>

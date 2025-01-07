@@ -1,6 +1,6 @@
 
 import './App.css';
-import AddInspectionForm from './component/AddInspectionForm';
+// import AddInspectionForm from './component/AddInspectionForm';
 import Footer from './component/Footer';
 import HomePage from './component/HomePage';
 import Login from './component/Login';
@@ -12,6 +12,7 @@ import ContactPage from './component/ContactPage';
 import ProtectedRoute from './component/ProtectedRoute';
 import CardPage from './component/CardPage';
 import FormPage from './component/FormPage';
+import NotFoundPage from './component/NotFoundPage';
 function App() {
 
   const cardsData = [
@@ -47,6 +48,14 @@ function App() {
     <BrowserRouter>
       <Navbar />
       <Routes>
+         <Route path="/" element={<HomePage />} />
+        <Route path="/form" element={<ProtectedRoute>
+              <FormPage />
+            </ProtectedRoute>} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/About" element={<About />} />
+        <Route path="/NotificationPage" element={<NotificationPage />} />
+        <Route path="/ContactPage" element={<ContactPage />} />
       {cardsData.map((card, index) => (
           <Route
             key={index}
@@ -54,16 +63,8 @@ function App() {
             element={<CardPage title={card.title} description={card.description} imageUrl={card.imageUrl} />}
           />
         ))}
-
-        <Route path="/*" element={<HomePage />} />
-        <Route path="/add" element={<ProtectedRoute>
-              <AddInspectionForm />
-            </ProtectedRoute>} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/About" element={<About />} />
-        <Route path="/NotificationPage" element={<NotificationPage />} />
-        <Route path="/ContactPage" element={<ContactPage />} />
-        <Route path="/form" element={<FormPage />} />
+        {/* <Route path="/form" element={<FormPage />} /> */}
+    <Route path="*" element={<NotFoundPage />} />
       </Routes>
       <Footer />
     </BrowserRouter>

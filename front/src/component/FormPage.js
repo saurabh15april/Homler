@@ -13,11 +13,19 @@ const FormPage = () => {
     complianceDate: '',
     complianceStatus: 'Pending',
     ptwNo: '',
+    termsAccepted: false,
   });
 
   const [dateGap, setDateGap] = useState(null);
   const [formCount, setFormCount] = useState({});
   const [showPopup, setShowPopup] = useState(false);
+
+  const machineNames = [
+    'BC-1A', 'BC-1B', 'BC-2A', 'BC-2B', 'BC-3A', 'BC-3B',
+    'BC-4A', 'BC-4B', 'BC-5A', 'BC-5B', 'BC-6A', 'BC-6B',
+    'BC-7A', 'BC-7B', 'BC-8A', 'BC-8B', 'BC-9A', 'BC-9B',
+    'BC-10A', 'BC-10B', 'BC-11A', 'BC-11B', 'BC-12A', 'BC-12B',
+  ];
 
   useEffect(() => {
     if (formData.machineName) {
@@ -29,9 +37,47 @@ const FormPage = () => {
     }
   }, [formData.machineName, formCount]);
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!formData.termsAccepted) {
+      alert('You must accept the terms and conditions!');
+      return;
+    }
+
+    alert('Form Submitted Successfully!');
+    console.log('New Product:', formData);
+
+    try {
+      const res = await fetch('https://bummy-backend.onrender.com/Addproduct', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+      const result = await res.json();
+      setFormData(result);
+    } catch (error) {
+      console.log(error);
+    }
+
+    setFormData({
+      machineName: '',
+      jointNo: '',
+      jointDate: '',
+      inspectionDate: '',
+      nextInspectionDate: '',
+      complianceDate: '',
+      complianceStatus: 'Pending',
+      ptwNo: '',
+      observations: [],
+      termsAccepted: false,
+    });
+  };
+
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+    const { name, value, type, checked } = e.target;
+    setFormData({ ...formData, [name]: type === 'checkbox' ? checked : value });
 
     if (name === 'inspectionDate' || name === 'nextInspectionDate') {
       calculateDateGap(
@@ -72,42 +118,6 @@ const FormPage = () => {
       const updatedObservations = [...prevState.observations];
       updatedObservations[index] = value;
       return { ...prevState, observations: updatedObservations };
-    });
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    if (!formData.machineName || !formData.jointNo || !formData.inspectionDate) {
-      alert('Please fill all mandatory fields.');
-      return;
-    }
-
-    if (new Date(formData.nextInspectionDate) <= new Date(formData.inspectionDate)) {
-      alert('Next Inspection Date must be after Inspection Date.');
-      return;
-    }
-
-    setFormCount((prevCount) => ({
-      ...prevCount,
-      [formData.machineName]: (prevCount[formData.machineName] || 0) + 1,
-    }));
-
-    console.log('Form submitted:', formData);
-    setShowPopup(true);
-
-    setFormData({
-      currentDate: new Date().toISOString().split('T')[0],
-      uniqueId: '',
-      machineName: '',
-      jointNo: '',
-      jointDate: '',
-      inspectionDate: '',
-      nextInspectionDate: '',
-      observations: [],
-      complianceDate: '',
-      complianceStatus: 'Pending',
-      ptwNo: '',
     });
   };
 
@@ -158,14 +168,17 @@ const FormPage = () => {
         </div>
         <div style={{ marginBottom: '15px' }}>
           <label>Machine Name:</label>
-          <input
-            type="text"
+          <select
             name="machineName"
             value={formData.machineName}
             onChange={handleChange}
-            placeholder="Enter Machine Name"
             required
-          />
+          >
+            <option value="">Select Machine Name</option>
+            {machineNames.map((name, index) => (
+              <option key={index} value={name}>{name}</option>
+            ))}
+          </select>
         </div>
         <div style={{ marginBottom: '15px' }}>
           <label>Joint No:</label>
@@ -261,6 +274,16 @@ const FormPage = () => {
             onChange={handleChange}
             placeholder="Enter PTW No"
           />
+        </div>
+        <div style={{ marginBottom: '15px', display: 'flex'
+        }}>
+          <label>
+            <input
+              type="checkbox"
+              name="termsAccepted"
+              checked={formData.termsAccepted}
+              onChange={handleChange}
+            />I accept the Terms and Conditions.</label>
         </div>
         <button type="submit" style={{ width: '100%', padding: '10px', backgroundColor: 'blue', color: 'white', border: 'none', cursor: 'pointer' }}>
           Submit
