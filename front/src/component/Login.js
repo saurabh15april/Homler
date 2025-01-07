@@ -55,7 +55,7 @@ const Login = ({ setIsLoggedIn }) => {
       localStorage.setItem('token', 'authenticated'); // Save login token
     
       alert('Login successful!');
-      navigate('/*'); // Redirect to the form page
+      navigate('/'); // Redirect to the form page
     } else {
       alert('Invalid username or password!');
     }
