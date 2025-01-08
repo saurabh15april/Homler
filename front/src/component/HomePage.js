@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import "./HomePage.css";
 // import { Card } from "@mui/material";
 import Cards from "./Cards";
@@ -6,64 +6,8 @@ import { Link } from "react-router-dom";
 import "./BC-1A.jpg"
 
 const HomePage = () => {
-  const [products, setProducts] = useState([]); // State to store fetched products
+  // const [products, setProducts] = useState([]); // State to store fetched products
   const [error, setError] = useState(null); // State to handle errors
-
-  // Fetch data from the API
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     try {
-  //       const response = await fetch("https://bummy-backend.onrender.com/*");
-  //       if (!response.ok) {
-  //         throw new Error(HTTP error! status: ${responsestatus});
-  //       }
-  //       const data = await response.json();
-  //       setProducts(data); // Update the state with the fetched data
-  //     } catch (err) {
-  //       setError(err.message); // Handle errors
-  //     }
-  //   };
-
-  //   fetchData();
-  // }, []);
-
-  // useEffect(() => {
-  //   // Fetch data from the server
-  //   fetch('https://bummy-backend.onrender.com/') // Replace with your endpoint
-  //     .then((response) => response.json())
-  //     .then((result) => {
-  //       setProducts(result);
-        
-  //     })
-  //     .catch((error) => {
-  //       console.error('Error fetching data:', error);
-  //       setError(error.message);
-  //     });
-
-  //   }, []);
-
-
-      
-    // fetch('http://localhost:8080/*')
-    // .then(response => {
-    //     if (!response.ok) {
-    //         throw new Error(`HTTP error! status: ${response.status}`);
-    //     }
-    //     return response.json(); // Parse response as JSON
-    // })
-    // .then(data => {
-    //     console.log(data); // Handle the JSON data
-    // })
-    // .catch(error => {
-    //     console.error('Error:', error);
-    // });
-
-
-
-
-
-
-
 
   return (
     <div className="homepage">
@@ -74,13 +18,17 @@ const HomePage = () => {
           alt="Hero Banner"
         />
       </div>
-
+      <div className="hero-text">
+          <h1>Welcome to Our Machine Store</h1>
+          <p>Your one-stop shop for top-quality machinery</p>
+        </div>
+     
       {/* Error Handling */}
       {error && <div className="error">Error: {error}</div>}
 
       {/* Featured Products */}
       <section className="featured-products">
-        <h2>Featured Machines</h2>
+        <h2>Machine Showcase</h2>
         <div className="product-grid">
           
    <Link to="/BC-1A" >  <Cards title="BC-1A" description="conveyer belt shows in this card " imageUrl="https://shorturl.at/vH0FJ"/>  </Link>
@@ -119,31 +67,3 @@ export default HomePage;
 
 
 
-//insert it in div product grid below
-
-// {products.length > 0 ? (
-//   products.map((product) => (
-//     <div className="product-card">
-//       {/* <img
-//         src={product.imageUrl || "https://via.placeholder.com/200x200"}
-//         alt={product.assetName || Machine ${index + 1}}
-//       /> */}
-//       <h3>{product.machineName }</h3>
-//       <p>{product.jointName }</p>
-//       <p>{product.inspectionDate }</p>
-//       <p>{product.expireDate }</p>
-//       <p>{product.nextInspectionDate }</p>
-//       <p>{product.inspectionStatus }</p>
-//       <p>{product.remark }</p>
-//       <p>{product.inspectionWorker }</p>
-//       <p>{product.inspectionIncharge }</p>
-//       <p>{product.observation}</p>
-        
-//       <button >Add to notification</button>
-//       <button>View</button>
-//       <button>Delete</button>
-//     </div>
-//   ))
-// ) : (
-//   <p>Loading products...</p>
-// )}

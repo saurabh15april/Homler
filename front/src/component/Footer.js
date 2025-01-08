@@ -1,7 +1,30 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './Footer.css'; // Import the CSS for styling
+import { FaFacebookF, FaTwitter, FaInstagram, FaLinkedinIn, FaChevronUp } from 'react-icons/fa';
 
 const Footer = () => {
+  const [showScrollButton, setShowScrollButton] = useState(false);
+
+  const handleScroll = () => {
+    if (window.scrollY > 300) {
+      setShowScrollButton(true);
+    } else {
+      setShowScrollButton(false);
+    }
+  };
+
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  // Listen for scroll events
+  React.useEffect(() => {
+    window.addEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
   return (
     <footer className="footer">
       <div className="footer-container">
@@ -18,10 +41,10 @@ const Footer = () => {
           <div className="footer-column">
             <h4>Quick Links</h4>
             <ul>
-              <li><a href="/Home">Home</a></li>
-              <li><a href="/Services">Services</a></li>
+              <li><a href="/">Home</a></li>
+              <li><a href="/PNF">Services</a></li>
               <li><a href="/About">About</a></li>
-              <li><a href="/Contact">Contact</a></li>
+              <li><a href="/ContactPage">Contact</a></li>
             </ul>
           </div>
 
@@ -29,7 +52,7 @@ const Footer = () => {
             <h4>Contact Us</h4>
             <p>Email: aasif.malik@adityabirla.com</p>
             <p>Phone: +91-8303521857</p>
-            <p>Address: Aditya Aluminium coke Handling System, Odisha, India </p>
+            <p>Address: Aditya Aluminium coke Handling System, Odisha, India</p>
           </div>
 
           <div className="footer-column">
@@ -39,8 +62,9 @@ const Footer = () => {
                 type="email"
                 placeholder="Enter your email"
                 required
+                aria-label="Enter your email"
               />
-              <button type="submit">Subscribe</button>
+              <button type="submit" aria-label="Subscribe">Subscribe</button>
             </form>
           </div>
         </div>
@@ -48,22 +72,35 @@ const Footer = () => {
         {/* Footer Bottom Section */}
         <div className="footer-bottom">
           <div className="social-icons">
-            <a href="https://facebook.com" target="_blank" rel="noreferrer">
-              <i className="fab fa-facebook-f"></i>
+            <a href="https://facebook.com" target="_blank" rel="noreferrer" aria-label="Facebook">
+              <FaFacebookF />
             </a>
-            <a href="https://twitter.com" target="_blank" rel="noreferrer">
-              <i className="fab fa-twitter"></i>
+            <a href="https://twitter.com" target="_blank" rel="noreferrer" aria-label="Twitter">
+              <FaTwitter />
             </a>
-            <a href="https://instagram.com" target="_blank" rel="noreferrer">
-              <i className="fab fa-instagram"></i>
+            <a href="https://instagram.com" target="_blank" rel="noreferrer" aria-label="Instagram">
+              <FaInstagram />
             </a>
-            <a href="https://linkedin.com" target="_blank" rel="noreferrer">
-              <i className="fab fa-linkedin-in"></i>
+            <a href="https://linkedin.com" target="_blank" rel="noreferrer" aria-label="LinkedIn">
+              <FaLinkedinIn />
             </a>
           </div>
+
+          <div className="terms-privacy">
+            <a href="/PNF" aria-label="Terms and Conditions">Terms</a> | 
+            <a href="/PNF" aria-label="Privacy Policy">Privacy</a>
+          </div>
+
           <p>© 2024 Your Website. All rights reserved.</p>
         </div>
       </div>
+
+      {/* Scroll to Top Button */}
+      {showScrollButton && (
+        <button onClick={scrollToTop} className="scroll-to-top" aria-label="Scroll to Top">
+          <FaChevronUp />
+        </button>
+      )}
     </footer>
   );
 };

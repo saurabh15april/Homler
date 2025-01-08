@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useParams } from 'react-router-dom';
+import { useParams } from "react-router-dom";
 
 const CardPage = ({ title, description }) => {
   const navigate = useNavigate();
@@ -10,6 +10,26 @@ const CardPage = ({ title, description }) => {
 
   const handleCreateClick = () => {
     navigate("/form"); // Redirect to the form page
+  };
+
+  const handleDelete = async (productId) => {
+    try {
+      const response = await fetch(`https://bummy-backend.onrender.com/${id}/${productId}`, {
+        method: "DELETE",
+      });
+      if (!response.ok) {
+        throw new Error("Failed to delete product");
+      }
+      // Remove the deleted product from the UI
+      setProducts(products.filter((product) => product.id !== productId));
+    } catch (err) {
+      console.error("Error deleting product:", err);
+      setError(err.message);
+    }
+  };
+
+  const handleEdit = (productId) => {
+    navigate(`/edit/${productId}`); // Navigate to the edit page with product ID
   };
 
   useEffect(() => {
@@ -28,7 +48,7 @@ const CardPage = ({ title, description }) => {
         console.error("Error fetching data:", error);
         setError(error.message);
       });
-  }, []); // Empty dependency array ensures it runs only once
+  }, [id]); // Dependency array includes 'id'
 
   return (
     <div style={{ textAlign: "center", padding: "20px" }}>
@@ -52,36 +72,44 @@ const CardPage = ({ title, description }) => {
       {error ? (
         <p style={{ color: "red" }}>Error: {error}</p>
       ) : products.length > 0 ? (
-        <div className="product-grid">
-          {products.map((product, index) => {
-            const nextInspectionDate = new Date(product.nextInspectionDate);
-            const inspectionDate = new Date(product.inspectionDate);
-            const daysGap = Math.ceil(
-              Math.abs(nextInspectionDate - inspectionDate) /
-                (1000 * 60 * 60 * 24)
-            );
-
-            return (
-              <div className="product-card" key={index}>
-                <p>Gap: {daysGap} days</p>
-                <h3>{product.machineName}</h3>
-                <p>jointName: {product.jointNo}</p>
-                <p>Inspection Date: {product.inspectionDate}</p>
-                <p>Joint Date: {product.jointDate}</p>
-                <p>Next Inspection Date: {product.nextInspectionDate}</p>
-                <p>Observation Status: {product.observation}</p>
-                <p>compliance Date: {product.complianceDate}</p>
-                <p>compliance Status: {product.complianceStatus}</p>
-                <p>PTW No: {product.ptwNo}</p>
-                {/* <p>Observation: {product.observation}</p> */}
-                <button>View</button>
-                <button>Delete</button>
-              </div>
-            );
-          })}
-        </div>
+        <table style={{ margin: "20px auto", borderCollapse: "collapse", width: "80%" }}>
+          <thead>
+            <tr>
+            <th style={{ border: "1px solid black", padding: "8px" }}>Unique ID</th>
+            <th style={{ border: "1px solid black", padding: "8px" }}>Create Date</th>
+              <th style={{ border: "1px solid black", padding: "8px" }}>Machine Name</th>
+              <th style={{ border: "1px solid black", padding: "8px" }}>Joint Date</th>
+              <th style={{ border: "1px solid black", padding: "8px" }}>Joint Name</th>
+              <th style={{ border: "1px solid black", padding: "8px" }}>Inspection Date</th>
+              <th style={{ border: "1px solid black", padding: "8px" }}>Next Inspection Date</th>
+              <th style={{ border: "1px solid black", padding: "8px" }}>Gap Date</th>
+              <th style={{ border: "1px solid black", padding: "8px" }}>Observation</th>
+              <th style={{ border: "1px solid black", padding: "8px" }}>Compliance Status</th>
+              <th style={{ border: "1px solid black", padding: "8px" }}>workerName</th>
+              <th style={{ border: "1px solid black", padding: "8px" }}>Guidance</th>
+              <th style={{ border: "1px solid black", padding: "8px" }}>PTW</th>
+           
+            </tr>
+          </thead>
+          <tbody>
+            {products.map((product) => (
+              <tr key={product.id}>
+                <td style={{ border: "1px solid black", padding: "8px" }}>{product.machineName}</td>
+                <td style={{ border: "1px solid black", padding: "8px" }}>{product.jointNo}</td>
+                <td style={{ border: "1px solid black", padding: "8px" }}>{product.inspectionDate}</td>
+                <td style={{ border: "1px solid black", padding: "8px" }}>{product.nextInspectionDate}</td>
+                <td style={{ border: "1px solid black", padding: "8px" }}>{product.observation}</td>
+                <td style={{ border: "1px solid black", padding: "8px" }}>{product.complianceStatus}</td>
+                <td style={{ border: "1px solid black", padding: "8px" }}>
+                  <button onClick={() => handleEdit(product.id)} style={{ marginRight: "10px" }}>Edit</button>
+                  <button onClick={() => handleDelete(product.id)} style={{ color: "red" }}>Delete</button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       ) : (
-        <p>Loading products... </p>
+        <p>Loading products...</p>
       )}
     </div>
   );
