@@ -53,7 +53,7 @@ const CardPage = ({ title, description }) => {
 
   return (
     <div style={{ textAlign: "center", padding: "40px", fontFamily: "'Roboto', sans-serif" }}>
-      <h1 style={{ fontSize: "2.5rem", color: "#343a40", marginBottom: "20px" }}>{title}</h1>
+      <h1 style={{ fontSize: "2.5rem", color: "#343a40", marginBottom: "20px" }}>{id}</h1>
       <button
         onClick={handleCreateClick}
         style={{
