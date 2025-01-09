@@ -4,7 +4,6 @@ import "./HomePage.css";
 import Cards from "./Cards";
 import { Link } from "react-router-dom";
 import "./BC-1A.jpg"
-
 const HomePage = () => {
   // const [products, setProducts] = useState([]); // State to store fetched products
   const [error, setError] = useState(null); // State to handle errors
@@ -14,7 +13,7 @@ const HomePage = () => {
       {/* Hero Banner */}
       <div className="hero-banner">
         <img
-          src="https://as1.ftcdn.net/v2/jpg/10/55/99/78/1000_F_1055997882_oKuHJiA70colz9TY8FgxQ19m2DqK4lBw.jpg"
+          src="https://i.postimg.cc/bwdbBTqJ/coverpic.jpg"
           alt="Hero Banner"
         />
       </div>
