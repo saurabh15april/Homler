@@ -56,6 +56,7 @@ function App() {
         <Route path="/About" element={<About />} />
         <Route path="/NotificationPage" element={<NotificationPage />} />
         <Route path="/ContactPage" element={<ContactPage />} />
+        <Route path="/PAN/PAN" element={<NotFoundPage/>} />
       {cardsData.map((card, index) => (
           <Route
             key={index}
@@ -64,7 +65,6 @@ function App() {
           />
         ))}
         {/* <Route path="/form" element={<FormPage />} /> */}
-    <Route path="/PNF" element={<NotFoundPage/>} />
       </Routes>
       <Footer />
     </BrowserRouter>

@@ -87,8 +87,8 @@ const Footer = () => {
           </div>
 
           <div className="terms-privacy">
-            <a href="/PNF" aria-label="Terms and Conditions">Terms</a> | 
-            <a href="/PNF" aria-label="Privacy Policy">Privacy</a>
+            <a href="/PNF/PNF" aria-label="Terms and Conditions">Terms</a> | 
+            <a href="/PNF/PNF" aria-label="Privacy Policy">Privacy</a>
           </div>
 
           <p>© 2024 Your Website. All rights reserved.</p>
