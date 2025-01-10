@@ -64,7 +64,7 @@ function App() {
           />
         ))}
         {/* <Route path="/form" element={<FormPage />} /> */}
-    <Route path="/PNF" element={<NotFoundPage />} />
+    <Route path="/PNF" element={<NotFoundPage/>} />
       </Routes>
       <Footer />
     </BrowserRouter>

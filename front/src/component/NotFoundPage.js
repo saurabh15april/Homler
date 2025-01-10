@@ -13,7 +13,7 @@ const NotFoundPage = () => {
       <h1 style={styles.title}>404</h1>
       <p style={styles.message}>Oops! The page you are looking for does not exist.</p>
       <button style={styles.button} onClick={handleGoBack}>
-        Go to Homepage
+        Go to Homepage 
       </button>
     </div>
   );
