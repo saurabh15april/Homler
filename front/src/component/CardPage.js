@@ -3,9 +3,11 @@ import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import { FaEdit, FaTrashAlt } from "react-icons/fa"; // FontAwesome Icons
 import * as XLSX from "xlsx"; // Import the xlsx library
+import NotificationPage from "./NotificationPage"; 
 const CardPage = ({ title, description }) => {
   const navigate = useNavigate();
   const [products, setProducts] = useState([]); // State to store fetched products
+  const [notifications, setNotifications] = useState(['']);
   const [error, setError] = useState(null); // State to handle errors
   const { id } = useParams();
 
@@ -44,18 +46,53 @@ const CardPage = ({ title, description }) => {
       })
       .then((result) => {
         setProducts(result);
+        const toda = new Date();
+        const filteredNotifications = result.filter((product) => {
+          const gap = Math.ceil(
+            Math.abs(toda - new Date(product.nextInspectionDate)) / (1000 * 60 * 60 * 24)
+          );
+          return gap < 10;
+        });
+
+        setNotifications(
+          filteredNotifications.map((product) => ({
+            id: product.uniqueId,
+            title: "Inspection Reminder",
+            message: `Next inspection for ${product.machineName} is scheduled on ${product.nextInspectionDate}.`,
+          }))
+        );
+
       })
       .catch((error) => {
         console.error("Error fetching data:", error);
         setError(error.message);
       });
   }, [id]); // Dependency array includes 'id'
+  
+  
+
+
+
   const handleExportToExcel = () => {
     const worksheet = XLSX.utils.json_to_sheet(products); // Convert JSON data to a worksheet
     const workbook = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(workbook, worksheet, "Products");
     XLSX.writeFile(workbook, `${id}_Products.xlsx`); // Download as Excel file
   };
+  const today = new Date();
+    const formattedDate = today.toLocaleDateString(); 
+    
+
+
+    // const notification = products.filter((product) => {
+    //   const gapDays = Math.ceil(
+    //     Math.abs(today - new Date(product.nextInspectionDate)) / (1000 * 60 * 60 * 24)
+    //   );
+    //   return gapDays < 10 ;
+    // });
+    // const handleViewNotifications = () => {
+    //   navigate("/NotificationPage", { state: { notification} });
+    // };
   return (
     <div style={containerStyle}>
       <h1 style={headingStyle}>{id}</h1>
@@ -67,19 +104,12 @@ const CardPage = ({ title, description }) => {
       >
         Create New
       </button>
+      {/* <button onClick={handleViewNotifications} style={createButtonStyle}>
+        View Notifications
+      </button> */}
       <button
         onClick={handleExportToExcel}
-        style={{
-          padding: "12px 25px",
-          backgroundColor: "#007bff",
-          color: "#fff",
-          border: "none",
-          borderRadius: "50px",
-          fontSize: "16px",
-          cursor: "pointer",
-          boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)",
-          transition: "all 0.3s ease-in-out",
-        }}
+        style={createButtonStyle}
       >
         Export to Excel
       </button>
@@ -115,6 +145,7 @@ const CardPage = ({ title, description }) => {
               </tr>
             </thead>
             <tbody>
+
               {products.map((product, index) => (
                 <tr
                   key={product.id}
@@ -135,7 +166,12 @@ const CardPage = ({ title, description }) => {
                   <td style={cellStyle}>{product.jointName}</td>
                   <td style={cellStyle}>{product.inspectionDate}</td>
                   <td style={cellStyle}>{product.nextInspectionDate}</td>
-                  <td style={cellStyle}>15</td>
+                  <td style={cellStyle}>
+    {Math.ceil(
+        Math.abs(new Date(formattedDate) - new Date(product.nextInspectionDate)) /
+        (1000 * 60 * 60 * 24)
+    )}
+</td>
                   <td style={cellStyle}>{product.observation}</td>
                   <td style={cellStyle}>{product.complianceStatus}</td>
                   <td style={cellStyle}>{product.workerName}</td>
@@ -156,6 +192,7 @@ const CardPage = ({ title, description }) => {
               ))}
             </tbody>
           </table>
+          <NotificationPage notifications={notifications} />
         </div>
       ) : (
         <p>Loading products...</p>
