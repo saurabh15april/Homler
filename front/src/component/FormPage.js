@@ -21,6 +21,7 @@ const FormPage = () => {
         complianceDate: '',
         complianceStatus: 'pending',
         ptwNo: '',
+        gap1: '',
         termsAccepted: false,
     });
 
@@ -80,6 +81,7 @@ alert('Form submitted successfully')
             complianceDate: '',
             complianceStatus: 'pending',
             ptwNo: '',
+            gap1: '',
             termsAccepted: false,
         });
     };
@@ -155,7 +157,7 @@ alert('Form submitted successfully')
 
                 <div className="form-group">
                     <label className="form-label">Gap (days):</label>
-                    <span className="form-value">{calculateGap()}</span>
+                    <span className="form-value" >{calculateGap()}</span>
                 </div>
 
                 <div className="form-group">
@@ -235,8 +237,7 @@ alert('Form submitted successfully')
                             onChange={handleChange}
                             required
                             className="form-checkbox"
-                        />
-                        I accept the terms and conditions
+                        />  I accept the terms and conditions
                     </label>
                 </div>
 

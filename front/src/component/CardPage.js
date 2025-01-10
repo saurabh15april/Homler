@@ -106,6 +106,7 @@ const CardPage = ({ title, description }) => {
                   "Worker Name",
                   "Guidance",
                   "PTW",
+                  "Action"
                 ].map((header) => (
                   <th key={header} style={headerStyle}>
                     {header}
@@ -127,12 +128,19 @@ const CardPage = ({ title, description }) => {
                     (e.target.style.backgroundColor = index % 2 === 0 ? "#f9f9f9" : "white")
                   }
                 >
+                   <td style={cellStyle}>{product.uniqueId}</td>
+                  <td style={cellStyle}>{product.currentDate}</td>
                   <td style={cellStyle}>{product.machineName}</td>
-                  <td style={cellStyle}>{product.jointNo}</td>
+                  <td style={cellStyle}>{product.jointDate}</td>
+                  <td style={cellStyle}>{product.jointName}</td>
                   <td style={cellStyle}>{product.inspectionDate}</td>
                   <td style={cellStyle}>{product.nextInspectionDate}</td>
+                  <td style={cellStyle}>15</td>
                   <td style={cellStyle}>{product.observation}</td>
                   <td style={cellStyle}>{product.complianceStatus}</td>
+                  <td style={cellStyle}>{product.workerName}</td>
+                  <td style={cellStyle}>{product.underGuidance}</td>
+                  <td style={cellStyle}>{product.ptwNo}</td>
                   <td style={cellStyle}>
                     <button onClick={() => handleEdit(product.id)} style={actionButtonStyle}>
                       <FaEdit /> Edit
