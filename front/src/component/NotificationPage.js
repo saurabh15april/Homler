@@ -1,6 +1,6 @@
 import React from "react";
 
-const NotificationPage = ({ notifications = [] }) => {
+const NotificationPage = ({ notifications }) => {
   return (
     <div style={{ padding: "20px", fontFamily: "Arial, sans-serif" }}>
       <h1>Notifications</h1>
@@ -15,8 +15,8 @@ const NotificationPage = ({ notifications = [] }) => {
                 paddingBottom: "10px",
               }}
             >
-              <h3 style={{ margin: 0 }}>{notification.machineName}</h3>
-              <p style={{ margin: "5px 0 0" }}>{notification.inspectionDate}</p>
+              <h3 style={{ margin: 0 }}>{notification.title}</h3>
+              <p style={{ margin: "5px 0 0" }}>{notification.message}</p>
             </li>
           ))}
         </ul>
