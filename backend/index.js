@@ -280,6 +280,15 @@ app.get('/search/:date', async (req, res) => {
 //         res.status(500).send({ error: 'Search failed', details: err.message });
 //     }
 // });
+app.get('/data', async (req, res) => {
+    try {
+        const collection = db.collection('MaintenanceRecord');
+        const records = await collection.find().toArray();
+        res.send(records);
+    } catch (err) {
+        res.status(500).send({ error: 'Failed to fetch records', details: err.message });
+    }
+});
 
 // Search for Records Using req.query as Query Parameters
 app.get('/:machineName', async (req, res) => {
@@ -316,15 +325,6 @@ app.delete('/delete/:id', async (req, res) => {
         res.send({ message: 'Record deleted successfully' });
     } catch (err) {
         res.status(500).send({ error: 'Failed to delete record', details: err.message });
-    }
-});
-app.get('/*', async (req, res) => {
-    try {
-        const collection = db.collection('MaintenanceRecord');
-        const records = await collection.find().toArray();
-        res.send(records);
-    } catch (err) {
-        res.status(500).send({ error: 'Failed to fetch records', details: err.message });
     }
 });
 
