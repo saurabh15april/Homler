@@ -328,6 +328,17 @@ app.get('/*', async (req, res) => {
     }
 });
 
+app.get('/notice/data', async (req, res) => {
+    try {
+        const db = client.db(dbName);
+        const collection = db.collection('MaintenanceRecord'); // Replace with your collection name
+        const data = await collection.find().toArray(); // Fetch all documents
+        res.json(data); // Send the data as a JSON response
+    } catch (err) {
+        res.status(500).json({ message: 'Error fetching data', error: err });
+    }
+});
+
 app.listen(PORT, () => {
     console.log(`Server is running on ${PORT}`);
 });
