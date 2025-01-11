@@ -167,7 +167,8 @@ const CardPage = ({ title, description }) => {
                   <td style={cellStyle}>{product.inspectionDate}</td>
                   <td style={cellStyle}>{product.nextInspectionDate}</td>
                   <td style={cellStyle}>
-    {Math.ceil(
+   
+           {Math.ceil(
         Math.abs(new Date(formattedDate) - new Date(product.nextInspectionDate)) /
         (1000 * 60 * 60 * 24)
     )}
@@ -192,7 +193,7 @@ const CardPage = ({ title, description }) => {
               ))}
             </tbody>
           </table>
-          <NotificationPage notifications={notifications} />
+          {/* <NotificationPage notifications={notifications} /> */}
         </div>
       ) : (
         <p>Loading products...</p>
