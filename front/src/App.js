@@ -14,6 +14,7 @@ import CardPage from './component/CardPage';
 import FormPage from './component/FormPage';
 import DeleteRecord from './component/DeleteRecord';
 import NotFoundPage from './component/NotFoundPage';
+import EditByUniqueId from './component/EditByUniqueId';
 function App() {
 
   const cardsData = [
@@ -55,6 +56,7 @@ function App() {
             </ProtectedRoute>} />
         <Route path="/login" element={<Login />} />
         <Route path="/About" element={<About />} />
+        <Route path='/EditRecord' element={<EditByUniqueId />} />
         <Route path="/NotificationPage" element={<NotificationPage />} />
         <Route path="/ContactPage" element={<ContactPage />} />
         <Route path='/DeleteRecord' element={<DeleteRecord />} />
