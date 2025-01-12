@@ -103,8 +103,8 @@ const InspectionTable = () => {
                   "Compliance Status",
                   "Worker Name",
                   "Guidance",
-                  "PTW",
-                  "Action",
+                  "PTW"
+                  
                 ].map((header) => (
                   <th key={header} style={headerStyle}>
                     {header}
@@ -149,18 +149,7 @@ const InspectionTable = () => {
                   <td style={cellStyle}>{product.underGuidance}</td>
                   <td style={cellStyle}>{product.ptwNo}</td>
                   <td style={cellStyle}>
-                    <button
-                      style={{ ...actionButtonStyle, backgroundColor: "#28a745" }}
-                      onClick={() => handleEdit(product.uniqueId)}
-                    >
-                      Edit
-                    </button>
-                    <button
-                      style={{ ...actionButtonStyle, backgroundColor: "#dc3545" }}
-                      onClick={() => handleDelete(product.uniqueId)}
-                    >
-                      Delete
-                    </button>
+                    
                   </td>
                 </tr>
               ))}
