@@ -283,7 +283,7 @@ app.put('/edit/:id', async (req, res) => {
         const updatedData = req.body; // The updated inspection data
 
         const result = await db.collection('MaintenanceRecord').updateOne(
-            { uniqueId: new ObjectId(inspectionId) }, // Find record by uniqueId
+            { uniqueId: inspectionId }, // Find record by uniqueId
             { $set: updatedData } // Update fields
         );
 
@@ -303,7 +303,7 @@ app.delete('/delete/:id', async (req, res) => {
     try {
         const collection = db.collection('MaintenanceRecord');
         const id = req.params.id;
-        const result = await collection.deleteOne({ uniqueId: new ObjectId(id) });
+        const result = await collection.deleteOne({ uniqueId: id });
         
         if (result.deletedCount === 0) {
             return res.status(404).send({ message: 'No matching document found' });
