@@ -32,6 +32,9 @@ const Navbar = () => {
           <Link to="/NotificationPage" className={styles.navItem}>Notification</Link>
         </li>
         <li>
+          <Link to="/DeleteRecord" className={styles.navItem}>DeleteRecord</Link>
+        </li>
+        <li>
           <Link to="/ContactPage" className={styles.navItem}>Contact</Link>
         </li>
         <li>

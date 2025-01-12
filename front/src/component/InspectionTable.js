@@ -5,7 +5,6 @@ const InspectionTable = () => {
   const [error, setError] = useState(null); // State to handle errors
 
   useEffect(() => {
-    // Fetch data from the server
     fetch(`https://bummy-backend.onrender.com/data`) // Replace with your endpoint
       .then((response) => {
         if (!response.ok) {
@@ -20,19 +19,66 @@ const InspectionTable = () => {
         console.error("Error fetching data:", error);
         setError(error.message);
       });
-  }, []); // Dependency array ensures the effect runs only once
+  }, []);
 
-  // Get today's date
+  const handleEdit = (id) => {
+    const updatedValue = prompt("Enter new data (in JSON format):");
+    if (updatedValue) {
+      try {
+        const parsedData = JSON.parse(updatedValue);
+        fetch(`https://bummy-backend.onrender.com/edit/${id}`, {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(parsedData),
+        })
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error("Failed to update data");
+            }
+            return response.json();
+          })
+          .then((updatedItem) => {
+            setProducts((prevProducts) =>
+              prevProducts.map((product) =>
+                product.uniqueId === id ? updatedItem : product
+              )
+            );
+            alert("Data updated successfully");
+          })
+          .catch((error) => alert("Error updating data:", error.message));
+      } catch (err) {
+        alert("Invalid JSON format");
+      }
+    }
+  };
+
+  const handleDelete = (id) => {
+    if (window.confirm("Are you sure you want to delete this item?")) {
+      fetch(`https://bummy-backend.onrender.com/delete/${id}`, {
+        method: "DELETE",
+      })
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error("Failed to delete data");
+          }
+          setProducts((prevProducts) =>
+            prevProducts.filter((product) => product.uniqueId !== id)
+          );
+          alert("Data deleted successfully");
+        })
+        .catch((error) => alert("Error deleting data:", error.message));
+    }
+  };
+
   const today = new Date();
 
-  // Filter products where the gap between today's date and nextInspectionDate is 10 days or less
   const filteredProducts = products.filter((product) => {
-    if (!product.nextInspectionDate) return false; // Skip if date is not available
+    if (!product.nextInspectionDate) return false;
     const nextInspectionDate = new Date(product.nextInspectionDate);
     const gapInDays = Math.ceil(
       (nextInspectionDate - today) / (1000 * 60 * 60 * 24)
     );
-    return gapInDays <= 10 && gapInDays >= 0; // Ensure gap is non-negative and within 10 days
+    return gapInDays <= 10 && gapInDays >= 0;
   });
 
   return (
@@ -87,7 +133,7 @@ const InspectionTable = () => {
                   <td style={cellStyle}>{product.currentDate}</td>
                   <td style={cellStyle}>{product.machineName}</td>
                   <td style={cellStyle}>{product.jointDate}</td>
-                  <td style={cellStyle}>{product.jointName}</td>
+                  <td style={cellStyle}><b>{product.jointName}</b></td>
                   <td style={cellStyle}>{product.inspectionDate}</td>
                   <td style={cellStyle}>{product.nextInspectionDate}</td>
                   <td style={cellStyle}>
@@ -103,7 +149,18 @@ const InspectionTable = () => {
                   <td style={cellStyle}>{product.underGuidance}</td>
                   <td style={cellStyle}>{product.ptwNo}</td>
                   <td style={cellStyle}>
-                    <button style={actionButtonStyle}>Action</button>
+                    <button
+                      style={{ ...actionButtonStyle, backgroundColor: "#28a745" }}
+                      onClick={() => handleEdit(product.uniqueId)}
+                    >
+                      Edit
+                    </button>
+                    <button
+                      style={{ ...actionButtonStyle, backgroundColor: "#dc3545" }}
+                      onClick={() => handleDelete(product.uniqueId)}
+                    >
+                      Delete
+                    </button>
                   </td>
                 </tr>
               ))}
@@ -152,7 +209,6 @@ const cellStyle = {
 const actionButtonStyle = {
   marginRight: "10px",
   padding: "5px 10px",
-  backgroundColor: "#ffc107",
   color: "#fff",
   border: "none",
   borderRadius: "5px",

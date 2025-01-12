@@ -135,8 +135,8 @@ const CardPage = ({ title, description }) => {
                   "Compliance Status",
                   "Worker Name",
                   "Guidance",
-                  "PTW",
-                  "Action"
+                  "PTW"
+                  
                 ].map((header) => (
                   <th key={header} style={headerStyle}>
                     {header}
@@ -163,7 +163,7 @@ const CardPage = ({ title, description }) => {
                   <td style={cellStyle}>{product.currentDate}</td>
                   <td style={cellStyle}>{product.machineName}</td>
                   <td style={cellStyle}>{product.jointDate}</td>
-                  <td style={cellStyle}>{product.jointName}</td>
+                  <td style={cellStyle}><b>{product.jointName}</b></td>
                   <td style={cellStyle}>{product.inspectionDate}</td>
                   <td style={cellStyle}>{product.nextInspectionDate}</td>
                   <td style={cellStyle}>
@@ -179,15 +179,7 @@ const CardPage = ({ title, description }) => {
                   <td style={cellStyle}>{product.underGuidance}</td>
                   <td style={cellStyle}>{product.ptwNo}</td>
                   <td style={cellStyle}>
-                    <button onClick={() => handleEdit(product.id)} style={actionButtonStyle}>
-                      <FaEdit /> Edit
-                    </button>
-                    <button
-                      onClick={() => handleDelete(product.id)}
-                      style={{ ...actionButtonStyle, backgroundColor: "#dc3545" }}
-                    >
-                      <FaTrashAlt /> Delete
-                    </button>
+                    
                   </td>
                 </tr>
               ))}

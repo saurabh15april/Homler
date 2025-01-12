@@ -12,6 +12,7 @@ import ContactPage from './component/ContactPage';
 import ProtectedRoute from './component/ProtectedRoute';
 import CardPage from './component/CardPage';
 import FormPage from './component/FormPage';
+import DeleteRecord from './component/DeleteRecord';
 import NotFoundPage from './component/NotFoundPage';
 function App() {
 
@@ -56,6 +57,7 @@ function App() {
         <Route path="/About" element={<About />} />
         <Route path="/NotificationPage" element={<NotificationPage />} />
         <Route path="/ContactPage" element={<ContactPage />} />
+        <Route path='/DeleteRecord' element={<DeleteRecord />} />
         <Route path="/PAN/PAN" element={<NotFoundPage/>} />
       {cardsData.map((card, index) => (
           <Route
