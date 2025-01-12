@@ -274,6 +274,24 @@ app.get('/:machineName', async (req, res) => {
     }
 });
 
+app.get('/edit/:id', async (req, res) => {
+    try {
+        const db = client.db(dbName);
+        const inspectionId = req.params.id; // Get the uniqueId from the request parameters
+
+        const record = await db.collection('MaintenanceRecord').findOne(
+            { uniqueId: inspectionId } // Find the record by uniqueId
+        );
+
+        if (!record) {
+            res.status(404).json({ message: 'Record not found' });
+        } else {
+            res.json(record); // Return the found record
+        }
+    } catch (err) {
+        res.status(500).send(err);
+    }
+});
 
 // API to edit an inspection record by ID
 app.put('/edit/:id', async (req, res) => {
