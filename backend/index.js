@@ -224,24 +224,6 @@ app.post('/Addproduct', async (req, res) => {
 
 // Get All Records
 
-// Update a Record
-app.put('/update/:id', async (req, res) => {
-    try {
-        const collection = db.collection('MaintenanceRecord');
-        const id = req.params.id;
-        const updateData = req.body;
-
-        const result = await collection.updateOne({ _id: new ObjectId(id) }, { $set: updateData });
-
-        if (result.matchedCount === 0) {
-            return res.status(404).send({ message: 'Record not found' });
-        }
-        res.send({ message: 'Record updated successfully' });
-    } catch (err) {
-        res.status(500).send({ error: 'Failed to update record', details: err.message });
-    }
-});
-
 // Search for a Record by Date
 app.get('/search/:date', async (req, res) => {
     try {
@@ -259,27 +241,8 @@ app.get('/search/:date', async (req, res) => {
 });
 
 
-// Search for a Record by Machine Name
-// app.get('/:machineName', async (req, res) => {
-//     try {
-//         const collection = db.collection('MaintenanceRecord');
-//         const machineName = req.query.machineName; // Get machineName from query parameter
 
-//         if (!machineName) {
-//             return res.status(400).send({ error: 'machineName query parameter is required' });
-//         }
 
-//         // Find records where products.machineName matches the query
-//         const results = await collection.find({ machineName: "BC-2A" }).toArray();
-
-//         if (results.length === 0) {
-//             return res.status(404).send({ message: 'No matching documents found' });
-//         }
-//         res.send(results);
-//     } catch (err) {
-//         res.status(500).send({ error: 'Search failed', details: err.message });
-//     }
-// });
 app.get('/data', async (req, res) => {
     try {
         const collection = db.collection('MaintenanceRecord');
@@ -312,12 +275,35 @@ app.get('/:machineName', async (req, res) => {
 });
 
 
+// API to edit an inspection record by ID
+app.put('/edit/:id', async (req, res) => {
+    try {
+        const db = client.db(dbName);
+        const inspectionId = req.params.id;
+        const updatedData = req.body; // The updated inspection data
+
+        const result = await db.collection('MaintenanceRecord').updateOne(
+            { uniqueId: new ObjectId(inspectionId) }, // Find record by uniqueId
+            { $set: updatedData } // Update fields
+        );
+
+        if (result.modifiedCount === 0) {
+            res.status(404).json({ message: 'Record not found or no changes made' });
+        } else {
+            res.json({ message: 'Record updated successfully' });
+        }
+    } catch (err) {
+        res.status(500).send(err);
+    }
+});
+
+
 // Delete a Record
 app.delete('/delete/:id', async (req, res) => {
     try {
         const collection = db.collection('MaintenanceRecord');
         const id = req.params.id;
-        const result = await collection.deleteOne({ _id: new ObjectId(id) });
+        const result = await collection.deleteOne({ uniqueId: new ObjectId(id) });
         
         if (result.deletedCount === 0) {
             return res.status(404).send({ message: 'No matching document found' });
