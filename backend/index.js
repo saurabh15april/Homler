@@ -308,12 +308,18 @@ app.put('/edit/:id', async (req, res) => {
         if (result.modifiedCount === 0) {
             res.status(404).json({ message: 'Record not found or no changes made' });
         } else {
-            res.json({ message: 'Record updated successfully' });
+            // Query to get the updated record and exclude the _id field
+            const updatedRecord = await db.collection('MaintenanceRecord').findOne(
+                { uniqueId: inspectionId },
+                { projection: { _id: 0 } } // Exclude _id field
+            );
+            res.json({ message: 'Record updated successfully', updatedRecord });
         }
     } catch (err) {
         res.status(500).send(err);
     }
 });
+
 
 
 // Delete a Record
