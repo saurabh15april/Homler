@@ -48,12 +48,12 @@ const Footer = () => {
             </ul>
           </div>
 
-          <div className="footer-column">
+          {/* <div className="footer-column">
             <h4>Contact Us</h4>
             <p>Email: aasif.malik@adityabirla.com</p>
             <p>Phone: +91-8303521857</p>
             <p>Address: Aditya Aluminium coke Handling System, Odisha, India</p>
-          </div>
+          </div> */}
 
           <div className="footer-column">
             <h4>Newsletter</h4>

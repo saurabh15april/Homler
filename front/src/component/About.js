@@ -72,17 +72,9 @@ const About = () => {
             Contact Information
           </Typography>
           <Typography variant="body1" sx={{ marginBottom: '10px', color: '#555' }}>
-            For any queries, suggestions, or assistance, feel free to contact us:
+            For any queries, suggestions, or assistance, feel free to contact us.
           </Typography>
-          <Typography variant="body1" sx={{ marginBottom: '5px', color: '#444' }}>
-            <strong>Email:</strong> aasif.malik@adityabirla.com
-          </Typography>
-          <Typography variant="body1" sx={{ marginBottom: '5px', color: '#444' }}>
-            <strong>Phone:</strong> +91 8303521857
-          </Typography>
-          <Typography variant="body1" sx={{ color: '#444' }}>
-            <strong>Address:</strong> 123 Maintenance Ave, Suite 456, Machine City, MC 12345
-          </Typography>
+         
         </Box>
       </Container>
       <style>
