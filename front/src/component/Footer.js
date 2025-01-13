@@ -50,10 +50,10 @@ const Footer = () => {
 
           <div className="footer-column">
             <h4>Contact Us</h4>
-            <p>Name: Aasif Malik Assistant Manager</p>
+            <p>Name: Assistant Manager Aasif Malik </p>
             <p>Email: aasif.malik@adityabirla.com</p>
            
-            <p>Address: Aditya Aluminium cole Handling Plant, Odisha, India</p>
+            <p>Address: Aditya Aluminium Coal Handling Plant, Odisha, India</p>
           </div>
 
           <div className="footer-column">
