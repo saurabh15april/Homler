@@ -56,10 +56,10 @@ function App() {
             </ProtectedRoute>} />
         <Route path="/login" element={<Login />} />
         <Route path="/About" element={<About />} />
-        <Route path='/EditRecord' element={<EditByUniqueId />} />
+        <Route path='/EditRecord' element={<ProtectedRoute><EditByUniqueId /></ProtectedRoute>} />
         <Route path="/NotificationPage" element={<NotificationPage />} />
         <Route path="/ContactPage" element={<ContactPage />} />
-        <Route path='/DeleteRecord' element={<DeleteRecord />} />
+        <Route path='/DeleteRecord' element={<ProtectedRoute><DeleteRecord /></ProtectedRoute>} />
         <Route path="/PAN/PAN" element={<NotFoundPage/>} />
       {cardsData.map((card, index) => (
           <Route

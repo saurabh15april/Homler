@@ -9,18 +9,18 @@ const EditByUniqueId = () => {
 
     // List of editable fields
     const editableFields = [
-        'machineName',
+        // 'machineName',
         'jointName',
-        'jointDate',
+        // 'jointDate',
         'inspectionDate',
        'nextInspectionDate',
         'observation',
         'workerName',
         'underGuidance',
         'complianceDate',
-        'complianceStatus',
+        // 'complianceStatus',
         'ptwNo',
-        'termsAccepted',
+        // 'termsAccepted',
        
     ];
 
@@ -47,15 +47,16 @@ const EditByUniqueId = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
+            const { _id, ...dataWithoutId } = data;
             const response = await fetch(`https://bummy-backend.onrender.com/edit/${uniqueId}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(data),
+                body: JSON.stringify(dataWithoutId),
             });
     
-            console.log("Data being sent:", JSON.stringify(data)); // Log the data being sent
+            console.log("Data being sent:", JSON.stringify(dataWithoutId)); // Log the data being sent
             
             if (!response.ok) {
                 // Log response status and body for more details
@@ -153,7 +154,7 @@ const styles = {
     },
     button: {
         padding: '10px 20px',
-        backgroundColor: '#4c7c7f',
+        backgroundColor: '#4CAF50',
         color: 'white',
         border: 'none',
         borderRadius: '4px',
@@ -163,7 +164,7 @@ const styles = {
     },
     submitButton: {
         alignSelf: 'center',
-        backgroundColor: '#5a6e72',
+        backgroundColor: '#4CAF50',
         padding: '12px 20px',
         fontSize: '16px',
         cursor: 'pointer',
