@@ -92,7 +92,7 @@ const Footer = () => {
             <a href="/PNF/PNF" aria-label="Privacy Policy">Privacy</a>
           </div>
 
-          <p>© 2024 Your Website. All rights reserved.</p>
+          <p>© 2025 Your Website. All rights reserved.</p>
         </div>
       </div>
 
