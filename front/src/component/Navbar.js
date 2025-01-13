@@ -32,7 +32,7 @@ const Navbar = () => {
           <Link to="/NotificationPage" className={styles.navItem}>Notification</Link>
         </li>
         <li>
-          <Link to="/DeleteRecord" className={styles.navItem}>DeleteRecord</Link>
+          <Link to="/DeleteRecord" className={styles.navItem}>Delete</Link>
         </li>
         <li>
           <Link to="/EditRecord" className={styles.navItem}>Edit</Link>
