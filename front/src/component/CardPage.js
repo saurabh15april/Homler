@@ -15,21 +15,7 @@ const CardPage = ({ title, description }) => {
     navigate("/form"); // Redirect to the form page
   };
 
-  const handleDelete = async (productId) => {
-    try {
-      const response = await fetch(`https://bummy-backend.onrender.com/${id}/${productId}`, {
-        method: "DELETE",
-      });
-      if (!response.ok) {
-        throw new Error("Failed to delete product");
-      }
-      // Remove the deleted product from the UI
-      setProducts(products.filter((product) => product.id !== productId));
-    } catch (err) {
-      console.error("Error deleting product:", err);
-      setError(err.message);
-    }
-  };
+ 
 
   const handleEdit = (productId) => {
     navigate(`/edit/${productId}`); // Navigate to the edit page with product ID
